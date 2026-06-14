@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="zh-TW" data-astro-cid-mw7aashj> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>單元測試實務 | </title><link rel="stylesheet" href="/drawio-cli/_astro/DocsLayout.BldRaKia.css">
+<style>.cb-wrap[data-astro-cid-jgrc2lfe]{margin-bottom:1.25rem}.cb-bar[data-astro-cid-jgrc2lfe]{display:flex;align-items:center;justify-content:space-between;background:#1a1a2e;border-radius:6px 6px 0 0;border:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.05);padding:.18rem .5rem .18rem .75rem;min-height:1.8rem}.cb-label[data-astro-cid-jgrc2lfe]{color:#a6adc8;font-family:Fira Code,Cascadia Code,Consolas,monospace;font-size:.73rem;letter-spacing:.04em}.cb-inner[data-astro-cid-jgrc2lfe] pre{border-radius:0 0 8px 8px!important;margin-bottom:0!important}.cb-copy[data-astro-cid-jgrc2lfe]{background:#ffffff14;color:#888;border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:.15rem .55rem;font-size:.7rem;cursor:pointer;transition:all .15s;flex-shrink:0}.cb-copy[data-astro-cid-jgrc2lfe]:hover{background:#ffffff2e;color:#fff}.cb-copy[data-astro-cid-jgrc2lfe].copied{color:#4ec9b0;border-color:#4ec9b0}
+</style></head>drawio-cli 開發指南 <meta name="description" content="解析 drawio-cli 的測試套件與執行流程，學習如何透過自動化測試驗證生成的 XML 圖表品質。"> <link rel="icon" href="/drawio-cli/favicon.svg" type="image/svg+xml"> <script>
+    (function () {
+      const s = localStorage.getItem('cc-theme');
+      const d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (s === 'dark' || (!s && d)) document.documentElement.classList.add('dark');
+    })();
+  </script>  </html> <body data-astro-cid-mw7aashj> <div id="pb" data-astro-cid-mw7aashj></div> <header data-astro-cid-mw7aashj> <div class="hi" data-astro-cid-mw7aashj> <div class="hl" data-astro-cid-mw7aashj> <button id="mbtn" class="ibtn" aria-label="選單" data-astro-cid-mw7aashj> <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-mw7aashj></path> </svg> </button> <a href="/drawio-cli/" class="site-name" data-astro-cid-mw7aashj> <span class="logo" data-astro-cid-mw7aashj>DC</span>&nbsp;&nbsp;drawio-cli 開發指南
+</a> </div> <div class="hr" data-astro-cid-mw7aashj> <button id="tt" class="ibtn" aria-label="切換主題" data-astro-cid-mw7aashj> <svg id="isun" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364-.707-.707M6.343 6.343l-.707-.707m12.728 0-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" data-astro-cid-mw7aashj></path> </svg> <svg id="imoon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 0 1 8.646 3.646 9.003 9.003 0 0 0 12 21a9.003 9.003 0 0 0 8.354-5.646z" data-astro-cid-mw7aashj></path> </svg> </button> </div> </div> </header> <div id="layout" data-astro-cid-mw7aashj> <nav id="sb" data-astro-cid-mw7aashj> <div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="1" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 1：介紹與安裝</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="1" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch01-introduction" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>1.</span> <span data-astro-cid-mw7aashj>drawio-cli 介紹</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch02-installation" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>2.</span> <span data-astro-cid-mw7aashj>專案安裝與設定</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="2" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 2：核心功能與架構</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="2" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch03-project-structure" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>3.</span> <span data-astro-cid-mw7aashj>CLI 目錄與結構</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch04-cli-usage" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>4.</span> <span data-astro-cid-mw7aashj>基本指令用法</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="3" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 3：模板開發</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="3" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch05-template-system" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>5.</span> <span data-astro-cid-mw7aashj>模板系統設計</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch06-ai-agent-template" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>6.</span> <span data-astro-cid-mw7aashj>實戰：AI Agent 模板</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="4" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 4：測試與進階應用</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="4" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch07-testing" class="active" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>7.</span> <span data-astro-cid-mw7aashj>單元測試實務</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch08-vscode-integration" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>8.</span> <span data-astro-cid-mw7aashj>VS Code 整合應用</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt" data-pid="5" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 5：附錄</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl closed" data-pl="5" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/about" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>9.</span> <span data-astro-cid-mw7aashj>關於作者</span>  </a> </li> </ul> </div> </nav> <div id="ov" data-astro-cid-mw7aashj></div> <main data-astro-cid-mw7aashj> <div class="cb" data-astro-cid-mw7aashj>  <span class="clabel">第 7 章 · Part 4：測試與進階應用</span> <h1>單元測試實務</h1> <p class="cdesc">建立持續驗證機制，保障圖表範本不會因語法或邏輯修改而毀損。</p> <h2>測試架構介紹</h2> <p>
+為了確保自動產出的圖表在任何時候都能被 Draw.io 正確解析，本專案在 <code>test/test.js</code> 中實作了一套輕量級的測試套件。
+    該套件不依賴 <code>Jest</code> 或 <code>Mocha</code> 等龐大框架，僅透過純 JavaScript 對產出的 XML 檔案與節點結構進行語法級與斷言（Assertion）級的檢驗。
+</p> <h2>執行測試指令</h2> <p>在專案根目錄下，執行以下命令來執行測試：</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="npm test" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>npm test</span></span></code></pre> </div> </div>  <script type="module">document.querySelectorAll(".cb-copy").forEach(e=>{e.addEventListener("click",()=>{const t=e.dataset.code;t&&navigator.clipboard.writeText(t).then(()=>{e.textContent="已複製!",e.classList.add("copied"),setTimeout(()=>{e.textContent="複製",e.classList.remove("copied")},2e3)})})});</script> <p>該指令底層實際執行的命令為：</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="node --experimental-vm-modules test/test.js" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>node --experimental-vm-modules test/test.js</span></span></code></pre> </div> </div>   <div class="call warn"> <span class="ci">⚠️</span> <div> <strong>為什麼需要 --experimental-vm-modules？</strong> <p>因為本專案使用了 ESM（ES Modules）架構，Node.js 原生執行測試檔時，若涉及虛擬機器（VM）或非同步 ESM 動態載入，必須加上該實驗性標記，否則會發生 <code>import</code> 語法載入錯誤。</p> </div> </div> <h2>測試核心範疇</h2> <p>測試套件主要檢驗以下三大維度：</p> <h3>1. XML 格式與標籤正確性</h3> <p>驗證模版輸出的字串是否為合法的 XML：</p> <ul> <li>確認字串開頭是否為 <code>&lt;?xml</code>。</li> <li>確認是否包含 Draw.io 的核心包裝標籤 <code>&lt;mxfile</code> 與 <code>&lt;mxGraphModel</code>。</li> </ul> <h3>2. 泳道（Layers）與節點（Nodes）完整性</h3> <p>自動掃描生成字串，確保所有的核心元素沒有在代碼修改中被遺漏：</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="// 驗證 5 大分層泳道存在
+test('Layer 3 (L3) present', () => assert(xml.includes('id=&quot;L3&quot;')));
+test('Layer 2a (L2a) present', () => assert(xml.includes('id=&quot;L2a&quot;')));
+
+// 驗證特定功能節點存在性與內容
+test('UI1 (War Room) present', () => assert(
+  xml.includes('id=&quot;UI1&quot;') &amp;&amp; xml.includes('War Room')
+));" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>// 驗證 5 大分層泳道存在</span></span>
+<span class="line"><span>test('Layer 3 (L3) present', () => assert(xml.includes('id="L3"')));</span></span>
+<span class="line"><span>test('Layer 2a (L2a) present', () => assert(xml.includes('id="L2a"')));</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// 驗證特定功能節點存在性與內容</span></span>
+<span class="line"><span>test('UI1 (War Room) present', () => assert(</span></span>
+<span class="line"><span>  xml.includes('id="UI1"') &#x26;&#x26; xml.includes('War Room')</span></span>
+<span class="line"><span>));</span></span></code></pre> </div> </div>   <h3>3. 連線（Edges）與標籤驗證</h3> <p>驗證關係連線是否正確，並且連線上的註解標籤沒有缺漏：</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="test('E3 has label &quot;poll / write&quot;', () => assert(xml.includes('poll / write')));
+test('E4 has label &quot;ingestion pipeline&quot;', () => assert(xml.includes('ingestion pipeline')));" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>test('E3 has label "poll / write"', () => assert(xml.includes('poll / write')));</span></span>
+<span class="line"><span>test('E4 has label "ingestion pipeline"', () => assert(xml.includes('ingestion pipeline')));</span></span></code></pre> </div> </div>   <h3>4. 實體檔案輸出驗證</h3> <p>測試套件會實際呼叫 <code>generate()</code> 函式，將檔案寫入暫存路徑 <code>test/output/test-output.drawio</code>，然後檢查檔案是否存在，並確認寫入的硬碟資料內容是否完整無損。</p> <h2>測試報告範例</h2> <p>測試全數通過時，終端機會列印出綠色打勾標示並顯示：</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="draw-cli test suite
+
+Template tests:
+  ✓ aiAgentTemplate returns a string
+  ✓ XML starts with <?xml
+  ...
+Results: 36 passed, 0 failed" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>draw-cli test suite</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Template tests:</span></span>
+<span class="line"><span>  ✓ aiAgentTemplate returns a string</span></span>
+<span class="line"><span>  ✓ XML starts with &#x3C;?xml</span></span>
+<span class="line"><span>  ...</span></span>
+<span class="line"><span>Results: 36 passed, 0 failed</span></span></code></pre> </div> </div>    </div> <nav class="cnav" data-astro-cid-mw7aashj> <a href="/drawio-cli/ch06-ai-agent-template" class="prev" data-astro-cid-mw7aashj> <span class="nd" data-astro-cid-mw7aashj>← 上一章</span> <span class="nt" data-astro-cid-mw7aashj>實戰：AI Agent 模板</span> </a> <a href="/drawio-cli/ch08-vscode-integration" class="next" data-astro-cid-mw7aashj> <span class="nd" data-astro-cid-mw7aashj>下一章 →</span> <span class="nt" data-astro-cid-mw7aashj>VS Code 整合應用</span> </a> </nav> </main> </div> <script>
+    // Theme
+    const html = document.documentElement;
+    const tt = document.getElementById('tt');
+    const isun = document.getElementById('isun');
+    const imoon = document.getElementById('imoon');
+    function syncIcons() {
+      const dk = html.classList.contains('dark');
+      isun.style.display = dk ? 'block' : 'none';
+      imoon.style.display = dk ? 'none' : 'block';
+    }
+    syncIcons();
+    tt?.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('cc-theme', html.classList.contains('dark') ? 'dark' : 'light');
+      syncIcons();
+    });
+
+    // Progress
+    const pb = document.getElementById('pb');
+    window.addEventListener('scroll', () => {
+      const t = document.documentElement.scrollHeight - window.innerHeight;
+      pb.style.width = t > 0 ? `${(window.scrollY / t) * 100}%` : '0%';
+    }, { passive: true });
+
+    // Sidebar part toggles
+    document.querySelectorAll('.pt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.pid;
+        const list = document.querySelector(`[data-pl="${id}"]`);
+        btn.classList.toggle('open');
+        list?.classList.toggle('closed');
+      });
+    });
+
+    // Mobile menu
+    const sb = document.getElementById('sb');
+    const ov = document.getElementById('ov');
+    const mb = document.getElementById('mbtn');
+    const open = () => { sb.classList.add('open'); ov.classList.add('open'); document.body.style.overflow='hidden'; };
+    const close = () => { sb.classList.remove('open'); ov.classList.remove('open'); document.body.style.overflow=''; };
+    mb?.addEventListener('click', open);
+    ov?.addEventListener('click', close);
+  </script> </body> 

@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-TW" data-astro-cid-mw7aashj> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>模板系統設計 | </title><link rel="stylesheet" href="/drawio-cli/_astro/DocsLayout.BldRaKia.css">
+<style>.cb-wrap[data-astro-cid-jgrc2lfe]{margin-bottom:1.25rem}.cb-bar[data-astro-cid-jgrc2lfe]{display:flex;align-items:center;justify-content:space-between;background:#1a1a2e;border-radius:6px 6px 0 0;border:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.05);padding:.18rem .5rem .18rem .75rem;min-height:1.8rem}.cb-label[data-astro-cid-jgrc2lfe]{color:#a6adc8;font-family:Fira Code,Cascadia Code,Consolas,monospace;font-size:.73rem;letter-spacing:.04em}.cb-inner[data-astro-cid-jgrc2lfe] pre{border-radius:0 0 8px 8px!important;margin-bottom:0!important}.cb-copy[data-astro-cid-jgrc2lfe]{background:#ffffff14;color:#888;border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:.15rem .55rem;font-size:.7rem;cursor:pointer;transition:all .15s;flex-shrink:0}.cb-copy[data-astro-cid-jgrc2lfe]:hover{background:#ffffff2e;color:#fff}.cb-copy[data-astro-cid-jgrc2lfe].copied{color:#4ec9b0;border-color:#4ec9b0}
+</style></head>drawio-cli 開發指南 <meta name="description" content="深入探討 Draw.io 底層 XML 結構，並掌握程式化生成圖形時的核心轉義與階層定位規則。"> <link rel="icon" href="/drawio-cli/favicon.svg" type="image/svg+xml"> <script>
+    (function () {
+      const s = localStorage.getItem('cc-theme');
+      const d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (s === 'dark' || (!s && d)) document.documentElement.classList.add('dark');
+    })();
+  </script>  </html> <body data-astro-cid-mw7aashj> <div id="pb" data-astro-cid-mw7aashj></div> <header data-astro-cid-mw7aashj> <div class="hi" data-astro-cid-mw7aashj> <div class="hl" data-astro-cid-mw7aashj> <button id="mbtn" class="ibtn" aria-label="選單" data-astro-cid-mw7aashj> <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-mw7aashj></path> </svg> </button> <a href="/drawio-cli/" class="site-name" data-astro-cid-mw7aashj> <span class="logo" data-astro-cid-mw7aashj>DC</span>&nbsp;&nbsp;drawio-cli 開發指南
+</a> </div> <div class="hr" data-astro-cid-mw7aashj> <button id="tt" class="ibtn" aria-label="切換主題" data-astro-cid-mw7aashj> <svg id="isun" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364-.707-.707M6.343 6.343l-.707-.707m12.728 0-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" data-astro-cid-mw7aashj></path> </svg> <svg id="imoon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 0 1 8.646 3.646 9.003 9.003 0 0 0 12 21a9.003 9.003 0 0 0 8.354-5.646z" data-astro-cid-mw7aashj></path> </svg> </button> </div> </div> </header> <div id="layout" data-astro-cid-mw7aashj> <nav id="sb" data-astro-cid-mw7aashj> <div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="1" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 1：介紹與安裝</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="1" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch01-introduction" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>1.</span> <span data-astro-cid-mw7aashj>drawio-cli 介紹</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch02-installation" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>2.</span> <span data-astro-cid-mw7aashj>專案安裝與設定</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="2" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 2：核心功能與架構</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="2" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch03-project-structure" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>3.</span> <span data-astro-cid-mw7aashj>CLI 目錄與結構</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch04-cli-usage" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>4.</span> <span data-astro-cid-mw7aashj>基本指令用法</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="3" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 3：模板開發</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="3" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch05-template-system" class="active" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>5.</span> <span data-astro-cid-mw7aashj>模板系統設計</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch06-ai-agent-template" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>6.</span> <span data-astro-cid-mw7aashj>實戰：AI Agent 模板</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt" data-pid="4" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 4：測試與進階應用</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl closed" data-pl="4" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch07-testing" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>7.</span> <span data-astro-cid-mw7aashj>單元測試實務</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch08-vscode-integration" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>8.</span> <span data-astro-cid-mw7aashj>VS Code 整合應用</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt" data-pid="5" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 5：附錄</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl closed" data-pl="5" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/about" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>9.</span> <span data-astro-cid-mw7aashj>關於作者</span>  </a> </li> </ul> </div> </nav> <div id="ov" data-astro-cid-mw7aashj></div> <main data-astro-cid-mw7aashj> <div class="cb" data-astro-cid-mw7aashj>  <span class="clabel">第 5 章 · Part 3：模板開發</span> <h1>模板系統設計</h1> <p class="cdesc">解析 Draw.io 的底層 XML 規範，避免發生「無效圖表」載入錯誤。</p> <h2>Draw.io XML 結構剖析</h2> <p>
+一個標準的 <code>.drawio</code> 檔案本質上是 XML。其骨架結構如下：
+</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="<?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>
+<mxfile host=&quot;draw-cli&quot; version=&quot;1.0.0&quot;>
+  <diagram name=&quot;圖表名稱&quot; id=&quot;diagram-unique-id&quot;>
+    <mxGraphModel dx=&quot;1000&quot; dy=&quot;600&quot; grid=&quot;1&quot; ...>
+      <root>
+        <!-- 0 與 1 為固定保留節點 -->
+        <mxCell id=&quot;0&quot; />
+        <mxCell id=&quot;1&quot; parent=&quot;0&quot; />
+
+        <!-- 這裡存放您的自訂元件與連線 -->
+        <mxCell id=&quot;node1&quot; value=&quot;標籤&quot; style=&quot;...&quot; vertex=&quot;1&quot; parent=&quot;1&quot;>
+          <mxGeometry x=&quot;100&quot; y=&quot;100&quot; width=&quot;120&quot; height=&quot;60&quot; as=&quot;geometry&quot; />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>&#x3C;?xml version="1.0" encoding="UTF-8"?></span></span>
+<span class="line"><span>&#x3C;mxfile host="draw-cli" version="1.0.0"></span></span>
+<span class="line"><span>  &#x3C;diagram name="圖表名稱" id="diagram-unique-id"></span></span>
+<span class="line"><span>    &#x3C;mxGraphModel dx="1000" dy="600" grid="1" ...></span></span>
+<span class="line"><span>      &#x3C;root></span></span>
+<span class="line"><span>        &#x3C;!-- 0 與 1 為固定保留節點 --></span></span>
+<span class="line"><span>        &#x3C;mxCell id="0" /></span></span>
+<span class="line"><span>        &#x3C;mxCell id="1" parent="0" /></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        &#x3C;!-- 這裡存放您的自訂元件與連線 --></span></span>
+<span class="line"><span>        &#x3C;mxCell id="node1" value="標籤" style="..." vertex="1" parent="1"></span></span>
+<span class="line"><span>          &#x3C;mxGeometry x="100" y="100" width="120" height="60" as="geometry" /></span></span>
+<span class="line"><span>        &#x3C;/mxCell></span></span>
+<span class="line"><span>      &#x3C;/root></span></span>
+<span class="line"><span>    &#x3C;/mxGraphModel></span></span>
+<span class="line"><span>  &#x3C;/diagram></span></span>
+<span class="line"><span>&#x3C;/mxfile></span></span></code></pre> </div> </div>  <script type="module">document.querySelectorAll(".cb-copy").forEach(e=>{e.addEventListener("click",()=>{const t=e.dataset.code;t&&navigator.clipboard.writeText(t).then(()=>{e.textContent="已複製!",e.classList.add("copied"),setTimeout(()=>{e.textContent="複製",e.classList.remove("copied")},2e3)})})});</script> <h2>XML 撰寫的四大關鍵鋼鐵規則</h2> <p>在設計代碼生成 XML 時，若不遵守以下規定，Draw.io 會直接損毀並顯示<strong>「非圖表檔案 / Cannot open file」</strong>的警告。</p> <h3>規則 1：特殊字元強制轉義（Escape）</h3> <p>在 <code>value="..."</code> 屬性或 <code>style="..."</code> 屬性內，凡是含有 <code>&amp;</code> 字元，<strong>必須轉義為 <code>&amp;amp;</code></strong>。</p> <ul> <li>例如：<code>value="AI Agent Q&amp;A"</code> 在寫入 XML 時必須轉換為 <code>value="AI Agent Q&amp;amp;A"</code>。</li> <li>同理，<code>&lt;</code> 與 <code>&gt;</code> 也建議轉義為 <code>&amp;lt;</code> 和 <code>&amp;gt;</code>。</li> </ul> <p><strong>防錯小撇步：</strong></p> <p>強烈建議在產生字串時，使用簡易的安全轉義函式處理：</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="function escapeXml(str) {
+  return str.replace(/&amp;/g, '&amp;amp;')
+            .replace(/</g, '&amp;lt;')
+            .replace(/>/g, '&amp;gt;');
+}" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>function escapeXml(str) {</span></span>
+<span class="line"><span>  return str.replace(/&#x26;/g, '&#x26;amp;')</span></span>
+<span class="line"><span>            .replace(/&#x3C;/g, '&#x26;lt;')</span></span>
+<span class="line"><span>            .replace(/>/g, '&#x26;gt;');</span></span>
+<span class="line"><span>}</span></span></code></pre> </div> </div>   <h3>規則 2：換行字元的正確寫法</h3> <p>
+在節點 <code>value</code> 的文字內容中若需要換行，<strong>禁止使用 <code>&lt;br&gt;</code>、<code>\n</code> 或 <code>\r\n</code></strong>。
+    必須強制轉義為 XML 的實體換行編碼：<strong><code>&amp;#xa;</code></strong>。
+</p> <ul> <li>❌ 錯誤：<code>value="第一行\\n第二行"</code> 或 <code>value="第一行&lt;br&gt;第二行"</code></li> <li>✅ 正確：<code>value="第一行&amp;#xa;第二行"</code></li> </ul> <h3>規則 3：啟用 HTML 標籤支援</h3> <p>
+如果您需要在節點內使用富文字樣式（例如使用 <code>&lt;b&gt;粗體&lt;/b&gt;</code> 或 <code>&lt;i&gt;斜體&lt;/i&gt;</code>），則該節點的 <code>style</code> 欄位內必須顯式包含 <strong><code>html=1;</code></strong> 屬性。
+</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="<mxCell id=&quot;myNode&quot; value=&quot;<b>重要</b>指標&quot; style=&quot;rounded=1;html=1;...&quot; vertex=&quot;1&quot; parent=&quot;1&quot;>" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>&#x3C;mxCell id="myNode" value="&#x3C;b>重要&#x3C;/b>指標" style="rounded=1;html=1;..." vertex="1" parent="1"></span></span></code></pre> </div> </div>   <h3>規則 4：容器與相對座標系統（Parent-Child）</h3> <p>在架構圖中，如果有多個節點被框在某個泳道（Swimlane）或容器（Container）內，則定位機制會發生根本性改變：</p> <div style="border:1px solid var(--border);border-radius:12px;padding:1.5rem;background:var(--bg2);margin:1rem 0"> <ul> <li><strong>頂層節點</strong>：其 <code>parent</code> 屬性必須設為 <code>"1"</code>。幾何座標 <code>x</code>, <code>y</code> 為相對於整個畫布左上角的<strong>絕對座標</strong>。</li> <li><strong>子節點</strong>：若節點隸屬於某個容器（例如容器的 <code>id="L3"</code>），其 <code>parent</code> 屬性必須指向該容器的 <code>id</code>（即 <code>parent="L3"</code>）。此時，其 <code>geometry</code> 座標 <code>x</code>, <code>y</code> <strong>必須變更為相對於該容器左上角的相對座標</strong>！</li> <li><strong>跨容器的連線（Edges）</strong>：
+        雖然連線是從容器 A 的節點指向容器 B 的節點，但是<strong>連線本身的 <code>parent</code> 屬性仍應設為 <code>"1"</code></strong>，並透過 <code>source</code> 與 <code>target</code> 屬性指定兩端點節點的絕對 <code>id</code> 即可。
+</li> </ul> </div> <div class="call tip"> <span class="ci">💡</span> <div> <strong>開發建議</strong> <p>在設計大型架構圖時，建議先以「靜態」的紙筆畫出大略的容器與節點分配，並用簡單的相對偏移量（如 <code>containerX + offsetX</code>）在 JavaScript 程式碼中計算座標，這樣能大幅減少手工維護坐標出錯的機率。</p> </div> </div> <h2>如何新增自訂模板</h2> <p> <code>drawio-cli</code> 採用「模板即函式」的設計，每個範本對應 <code>src/templates/</code> 下的一個獨立 <code>.js</code> 檔案。
+    新增自訂模板只需三個步驟：
+</p> <h3>步驟 1：建立模板檔案</h3> <p>在 <code>src/templates/</code> 目錄新增一個 JavaScript 檔案，並導出一個標準生成函式：</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="// src/templates/my-diagram.js
+export function myDiagramTemplate() {
+  const escapeXml = (s) =>
+    s.replace(/&amp;/g, '&amp;amp;').replace(/</g, '&amp;lt;').replace(/>/g, '&amp;gt;');
+
+  // 使用反引號 template literal 組裝 XML 字串
+  const label = escapeXml('Hello &amp; World');
+  return '<?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>' +
+    '<mxfile host=&quot;draw-cli&quot; version=&quot;1.0.0&quot;>' +
+    '<diagram name=&quot;My Diagram&quot; id=&quot;my-diagram-001&quot;>' +
+    '<mxGraphModel dx=&quot;1200&quot; dy=&quot;800&quot; grid=&quot;1&quot; pageWidth=&quot;1654&quot; pageHeight=&quot;1169&quot;>' +
+    '<root>' +
+    '<mxCell id=&quot;0&quot; />' +
+    '<mxCell id=&quot;1&quot; parent=&quot;0&quot; />' +
+    `<mxCell id=&quot;box1&quot; value=&quot;${label}&quot; style=&quot;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;>
+  <mxGeometry x=&quot;100&quot; y=&quot;100&quot; width=&quot;200&quot; height=&quot;80&quot; as=&quot;geometry&quot; />
+</mxCell>` +
+    '</root></mxGraphModel></diagram></mxfile>';
+}" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>// src/templates/my-diagram.js</span></span>
+<span class="line"><span>export function myDiagramTemplate() {</span></span>
+<span class="line"><span>  const escapeXml = (s) =></span></span>
+<span class="line"><span>    s.replace(/&#x26;/g, '&#x26;amp;').replace(/&#x3C;/g, '&#x26;lt;').replace(/>/g, '&#x26;gt;');</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  // 使用反引號 template literal 組裝 XML 字串</span></span>
+<span class="line"><span>  const label = escapeXml('Hello &#x26; World');</span></span>
+<span class="line"><span>  return '&#x3C;?xml version="1.0" encoding="UTF-8"?>' +</span></span>
+<span class="line"><span>    '&#x3C;mxfile host="draw-cli" version="1.0.0">' +</span></span>
+<span class="line"><span>    '&#x3C;diagram name="My Diagram" id="my-diagram-001">' +</span></span>
+<span class="line"><span>    '&#x3C;mxGraphModel dx="1200" dy="800" grid="1" pageWidth="1654" pageHeight="1169">' +</span></span>
+<span class="line"><span>    '&#x3C;root>' +</span></span>
+<span class="line"><span>    '&#x3C;mxCell id="0" />' +</span></span>
+<span class="line"><span>    '&#x3C;mxCell id="1" parent="0" />' +</span></span>
+<span class="line"><span>    `&#x3C;mxCell id="box1" value="${label}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"></span></span>
+<span class="line"><span>  &#x3C;mxGeometry x="100" y="100" width="200" height="80" as="geometry" /></span></span>
+<span class="line"><span>&#x3C;/mxCell>` +</span></span>
+<span class="line"><span>    '&#x3C;/root>&#x3C;/mxGraphModel>&#x3C;/diagram>&#x3C;/mxfile>';</span></span>
+<span class="line"><span>}</span></span></code></pre> </div> </div>   <h3>步驟 2：在 generator.js 中註冊</h3> <p>打開 <code>src/generator.js</code>，在頂部匯入新模板函式，並加入 <code>templates</code> 對照表：</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="// src/generator.js
+import { aiAgentTemplate } from './templates/ai-agent.js';
+import { myDiagramTemplate } from './templates/my-diagram.js'; // 新增匯入
+
+const templates = {
+  'ai-agent': {
+    fn: aiAgentTemplate,
+    description: 'AI Agent 系統架構圖 (5層泳道)',
+  },
+  'my-diagram': {                        // 新增條目
+    fn: myDiagramTemplate,
+    description: '我的自訂圖表範本',
+  },
+};" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>// src/generator.js</span></span>
+<span class="line"><span>import { aiAgentTemplate } from './templates/ai-agent.js';</span></span>
+<span class="line"><span>import { myDiagramTemplate } from './templates/my-diagram.js'; // 新增匯入</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>const templates = {</span></span>
+<span class="line"><span>  'ai-agent': {</span></span>
+<span class="line"><span>    fn: aiAgentTemplate,</span></span>
+<span class="line"><span>    description: 'AI Agent 系統架構圖 (5層泳道)',</span></span>
+<span class="line"><span>  },</span></span>
+<span class="line"><span>  'my-diagram': {                        // 新增條目</span></span>
+<span class="line"><span>    fn: myDiagramTemplate,</span></span>
+<span class="line"><span>    description: '我的自訂圖表範本',</span></span>
+<span class="line"><span>  },</span></span>
+<span class="line"><span>};</span></span></code></pre> </div> </div>   <h3>步驟 3：驗證執行</h3> <p>完成後，執行以下指令確認新模板已正確註冊並可產生檔案：</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="# 確認列表中有新模板
+draw-cli list
+
+# 測試產生
+draw-cli generate my-diagram ./test-output.drawio" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span># 確認列表中有新模板</span></span>
+<span class="line"><span>draw-cli list</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 測試產生</span></span>
+<span class="line"><span>draw-cli generate my-diagram ./test-output.drawio</span></span></code></pre> </div> </div>   <h2>常用 Style 屬性速查</h2> <p>Draw.io 的節點外觀完全由 <code>style</code> 字串控制。以下是最常用的屬性一覽：</p> <table> <thead> <tr><th>屬性</th><th>說明</th><th>範例值</th></tr> </thead> <tbody> <tr><td><code>rounded</code></td><td>圓角矩形</td><td><code>0</code> / <code>1</code></td></tr> <tr><td><code>fillColor</code></td><td>填充色（十六進位）</td><td><code>#dae8fc</code></td></tr> <tr><td><code>strokeColor</code></td><td>邊框色</td><td><code>#6c8ebf</code></td></tr> <tr><td><code>fontStyle</code></td><td>字型樣式</td><td><code>0</code>=一般 <code>1</code>=粗體 <code>2</code>=斜體</td></tr> <tr><td><code>fontSize</code></td><td>文字大小（px）</td><td><code>11</code> / <code>13</code></td></tr> <tr><td><code>align</code></td><td>水平對齊</td><td><code>left</code> / <code>center</code> / <code>right</code></td></tr> <tr><td><code>verticalAlign</code></td><td>垂直對齊</td><td><code>top</code> / <code>middle</code> / <code>bottom</code></td></tr> <tr><td><code>whiteSpace</code></td><td>文字換行</td><td><code>wrap</code> 啟用自動換行</td></tr> <tr><td><code>html</code></td><td>啟用 HTML 標籤</td><td><code>1</code></td></tr> <tr><td><code>swimlane</code></td><td>泳道容器</td><td>加在 style 最前面</td></tr> <tr><td><code>startSize</code></td><td>泳道標題列高度</td><td><code>30</code> / <code>35</code></td></tr> <tr><td><code>dashed</code></td><td>虛線邊框</td><td><code>1</code></td></tr> </tbody> </table> <div class="call warn"> <span class="ci">⚠️</span> <div> <strong>Style 字串格式注意事項</strong> <p>Style 屬性使用分號（<code>;</code>）分隔，且最後一個屬性後面<strong>不需要</strong>加分號（但加了也不會出錯）。屬性值中若有特殊字元同樣需要 XML 轉義。</p> </div> </div>  </div> <nav class="cnav" data-astro-cid-mw7aashj> <a href="/drawio-cli/ch04-cli-usage" class="prev" data-astro-cid-mw7aashj> <span class="nd" data-astro-cid-mw7aashj>← 上一章</span> <span class="nt" data-astro-cid-mw7aashj>基本指令用法</span> </a> <a href="/drawio-cli/ch06-ai-agent-template" class="next" data-astro-cid-mw7aashj> <span class="nd" data-astro-cid-mw7aashj>下一章 →</span> <span class="nt" data-astro-cid-mw7aashj>實戰：AI Agent 模板</span> </a> </nav> </main> </div> <script>
+    // Theme
+    const html = document.documentElement;
+    const tt = document.getElementById('tt');
+    const isun = document.getElementById('isun');
+    const imoon = document.getElementById('imoon');
+    function syncIcons() {
+      const dk = html.classList.contains('dark');
+      isun.style.display = dk ? 'block' : 'none';
+      imoon.style.display = dk ? 'none' : 'block';
+    }
+    syncIcons();
+    tt?.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('cc-theme', html.classList.contains('dark') ? 'dark' : 'light');
+      syncIcons();
+    });
+
+    // Progress
+    const pb = document.getElementById('pb');
+    window.addEventListener('scroll', () => {
+      const t = document.documentElement.scrollHeight - window.innerHeight;
+      pb.style.width = t > 0 ? `${(window.scrollY / t) * 100}%` : '0%';
+    }, { passive: true });
+
+    // Sidebar part toggles
+    document.querySelectorAll('.pt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.pid;
+        const list = document.querySelector(`[data-pl="${id}"]`);
+        btn.classList.toggle('open');
+        list?.classList.toggle('closed');
+      });
+    });
+
+    // Mobile menu
+    const sb = document.getElementById('sb');
+    const ov = document.getElementById('ov');
+    const mb = document.getElementById('mbtn');
+    const open = () => { sb.classList.add('open'); ov.classList.add('open'); document.body.style.overflow='hidden'; };
+    const close = () => { sb.classList.remove('open'); ov.classList.remove('open'); document.body.style.overflow=''; };
+    mb?.addEventListener('click', open);
+    ov?.addEventListener('click', close);
+  </script> </body> 

@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="zh-TW" data-astro-cid-mw7aashj> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>VS Code 整合應用 | </title><link rel="stylesheet" href="/drawio-cli/_astro/DocsLayout.BldRaKia.css">
+<style>.cb-wrap[data-astro-cid-jgrc2lfe]{margin-bottom:1.25rem}.cb-bar[data-astro-cid-jgrc2lfe]{display:flex;align-items:center;justify-content:space-between;background:#1a1a2e;border-radius:6px 6px 0 0;border:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.05);padding:.18rem .5rem .18rem .75rem;min-height:1.8rem}.cb-label[data-astro-cid-jgrc2lfe]{color:#a6adc8;font-family:Fira Code,Cascadia Code,Consolas,monospace;font-size:.73rem;letter-spacing:.04em}.cb-inner[data-astro-cid-jgrc2lfe] pre{border-radius:0 0 8px 8px!important;margin-bottom:0!important}.cb-copy[data-astro-cid-jgrc2lfe]{background:#ffffff14;color:#888;border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:.15rem .55rem;font-size:.7rem;cursor:pointer;transition:all .15s;flex-shrink:0}.cb-copy[data-astro-cid-jgrc2lfe]:hover{background:#ffffff2e;color:#fff}.cb-copy[data-astro-cid-jgrc2lfe].copied{color:#4ec9b0;border-color:#4ec9b0}
+</style></head>drawio-cli 開發指南 <meta name="description" content="介紹如何將 drawio-cli 與 VS Code 及 Obsidian 等本地工具無縫整合，提升圖表開發與預覽體驗。"> <link rel="icon" href="/drawio-cli/favicon.svg" type="image/svg+xml"> <script>
+    (function () {
+      const s = localStorage.getItem('cc-theme');
+      const d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (s === 'dark' || (!s && d)) document.documentElement.classList.add('dark');
+    })();
+  </script>  </html> <body data-astro-cid-mw7aashj> <div id="pb" data-astro-cid-mw7aashj></div> <header data-astro-cid-mw7aashj> <div class="hi" data-astro-cid-mw7aashj> <div class="hl" data-astro-cid-mw7aashj> <button id="mbtn" class="ibtn" aria-label="選單" data-astro-cid-mw7aashj> <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-mw7aashj></path> </svg> </button> <a href="/drawio-cli/" class="site-name" data-astro-cid-mw7aashj> <span class="logo" data-astro-cid-mw7aashj>DC</span>&nbsp;&nbsp;drawio-cli 開發指南
+</a> </div> <div class="hr" data-astro-cid-mw7aashj> <button id="tt" class="ibtn" aria-label="切換主題" data-astro-cid-mw7aashj> <svg id="isun" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364-.707-.707M6.343 6.343l-.707-.707m12.728 0-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" data-astro-cid-mw7aashj></path> </svg> <svg id="imoon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 0 1 8.646 3.646 9.003 9.003 0 0 0 12 21a9.003 9.003 0 0 0 8.354-5.646z" data-astro-cid-mw7aashj></path> </svg> </button> </div> </div> </header> <div id="layout" data-astro-cid-mw7aashj> <nav id="sb" data-astro-cid-mw7aashj> <div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="1" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 1：介紹與安裝</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="1" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch01-introduction" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>1.</span> <span data-astro-cid-mw7aashj>drawio-cli 介紹</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch02-installation" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>2.</span> <span data-astro-cid-mw7aashj>專案安裝與設定</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="2" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 2：核心功能與架構</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="2" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch03-project-structure" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>3.</span> <span data-astro-cid-mw7aashj>CLI 目錄與結構</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch04-cli-usage" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>4.</span> <span data-astro-cid-mw7aashj>基本指令用法</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="3" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 3：模板開發</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="3" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch05-template-system" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>5.</span> <span data-astro-cid-mw7aashj>模板系統設計</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch06-ai-agent-template" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>6.</span> <span data-astro-cid-mw7aashj>實戰：AI Agent 模板</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt open" data-pid="4" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 4：測試與進階應用</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl" data-pl="4" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch07-testing" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>7.</span> <span data-astro-cid-mw7aashj>單元測試實務</span>  </a> </li><li data-astro-cid-mw7aashj> <a href="/drawio-cli/ch08-vscode-integration" class="active" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>8.</span> <span data-astro-cid-mw7aashj>VS Code 整合應用</span>  </a> </li> </ul> </div><div class="np" data-astro-cid-mw7aashj> <button class="pt" data-pid="5" data-astro-cid-mw7aashj> <span data-astro-cid-mw7aashj>Part 5：附錄</span> <svg class="arr" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-astro-cid-mw7aashj> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" data-astro-cid-mw7aashj></path> </svg> </button> <ul class="nl closed" data-pl="5" data-astro-cid-mw7aashj> <li data-astro-cid-mw7aashj> <a href="/drawio-cli/about" data-astro-cid-mw7aashj> <span class="cn" data-astro-cid-mw7aashj>9.</span> <span data-astro-cid-mw7aashj>關於作者</span>  </a> </li> </ul> </div> </nav> <div id="ov" data-astro-cid-mw7aashj></div> <main data-astro-cid-mw7aashj> <div class="cb" data-astro-cid-mw7aashj>  <span class="clabel">第 8 章 · Part 4：測試與進階應用</span> <h1>VS Code 整合應用</h1> <p class="cdesc">建立高效的本地圖表編輯工作流，實現「代碼生成、編輯器預覽、筆記整合」三合一。</p> <h2>VS Code 整合：即時預覽與編輯</h2> <p>
+雖然 <code>drawio-cli</code> 能快速產生 <code>.drawio</code> 檔案，但若每次都要開啟瀏覽器或桌面版 Draw.io 才能確認外觀，會降低開發效率。
+    為此，我們強烈建議整合 VS Code 整合插件。
+</p> <h3>安裝整合插件</h3> <p>在 VS Code 的擴充套件商店中搜尋並安裝由 <strong>Henning Dieterichs</strong> 開發的穩定版插件：<br> <code>Draw.io Integration</code> (ID: <code>hediet.vscode-drawio</code>)。
+</p> <p>或者，您可以在終端機中執行快速安裝指令：</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="code --install-extension hediet.vscode-drawio" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span>code --install-extension hediet.vscode-drawio</span></span></code></pre> </div> </div>  <script type="module">document.querySelectorAll(".cb-copy").forEach(e=>{e.addEventListener("click",()=>{const t=e.dataset.code;t&&navigator.clipboard.writeText(t).then(()=>{e.textContent="已複製!",e.classList.add("copied"),setTimeout(()=>{e.textContent="複製",e.classList.remove("copied")},2e3)})})});</script> <h3>使用方式</h3> <ul> <li>當您在 VS Code 中點擊 <code>drawio-cli</code> 產生的 <code>.drawio</code> 檔案時，插件會自動以**視覺化繪圖介面**直接打開它。</li> <li>您可以在該介面中直接拖曳、新增元件或修改屬性。存檔後，底層的 XML 程式碼會自動同步更新。</li> <li>如果您想直接查看底層的 XML 代碼，只需對檔案按右鍵，選擇「開啟方式...（Open With...）」，並選擇「文字編輯器（Text Editor）」即可。</li> </ul> <div class="call tip"> <span class="ci">💡</span> <div> <strong>開發工作流建議</strong> <p>您可以將 VS Code 視窗切割為兩欄，左欄開啟範本的 JavaScript 程式碼，右欄開啟產出的 <code>.drawio</code> 圖表。每次執行 <code>draw-cli generate</code> 後，右欄的圖表會自動即時重新整理，帶給您無縫的即時預覽體驗！</p> </div> </div> <h2>Obsidian 整合：知識庫圖表管理</h2> <p>
+如果您使用 Obsidian 來管理您的技術筆記與專案文件，您也可以將產出的圖表直接置於筆記中。
+</p> <p>
+預設情況下，Obsidian 為了安全與簡潔，不會顯示 <code>.drawio</code> 等自訂副檔名的檔案。請依照以下步驟啟用支援：
+</p> <ol> <li>開啟 Obsidian，點擊左下角的 <strong>設定（Settings）</strong>。</li> <li>選擇 <strong>檔案與連結（Files and links）</strong>。</li> <li>將 <strong>偵測所有檔案副檔名（Detect all file extensions）</strong> 選項切換為 <strong>開啟（ON）</strong>。</li> </ol> <p>啟用此設定後，您就可以在 Obsidian 筆記中以雙鏈格式（例如 <code>[[System_Architecture.drawio]]</code>）直接參照、開啟或管理您的系統架構圖了。</p> <h2>draw.io 官方 MCP Server 整合</h2> <p>
+2025 年，draw.io 官方（JGraph）發佈了 <a href="https://github.com/jgraph/drawio-mcp" target="_blank">@drawio/mcp</a> MCP Server，
+    讓 AI 編程助手（如 Claude Code）能透過自然語言描述，直接在瀏覽器開啟 draw.io 編輯器並生成圖表。
+</p> <h3>與 drawio-cli 的定位比較</h3> <table> <thead> <tr> <th>面向</th> <th>drawio-cli（本工具）</th> <th>@drawio/mcp（官方 MCP）</th> </tr> </thead> <tbody> <tr> <td><strong>輸出格式</strong></td> <td>本地 <code>.drawio</code> 檔案（可版控）</td> <td>在瀏覽器中開啟 draw.io 編輯器</td> </tr> <tr> <td><strong>自動化</strong></td> <td>完全自動化，適合 CI/CD 流水線</td> <td>需要瀏覽器互動，適合即時設計</td> </tr> <tr> <td><strong>版本控制</strong></td> <td>生成的 XML 可直接 Git Diff</td> <td>需手動儲存後才能版控</td> </tr> <tr> <td><strong>依賴</strong></td> <td>純 Node.js，無外部依賴</td> <td>需要 Node.js + npx + 瀏覽器</td> </tr> <tr> <td><strong>範本管理</strong></td> <td>精心設計的內建範本 + 自訂擴充</td> <td>支援 XML / CSV / Mermaid 輸入</td> </tr> </tbody> </table> <div class="call tip"> <span class="ci">💡</span> <div> <strong>混合使用策略</strong> <p>最佳實踐是「兩者互補」：用 <code>drawio-cli</code> 維護版控中的架構圖主版本，用 <code>@drawio/mcp</code> 在需要即時設計修改時快速探索想法，確認後再更新到範本程式碼中。</p> </div> </div> <h2>匯出 PNG／PDF：搭配 draw.io 桌面版 CLI</h2> <p> <code>drawio-cli</code> 負責產生 <code>.drawio</code> 原始檔，若需要進一步匯出為 PNG 或 PDF，可搭配 draw.io 桌面版應用程式的命令列功能：
+</p> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="# Windows：安裝 draw.io 桌面版後
+# 通常位於 C:Program Filesdraw.iodraw.io.exe
+
+# 匯出為 PNG（-x 指定輸出格式，-o 指定輸出路徑）
+&quot;C:Program Filesdraw.iodraw.io.exe&quot; -x -f png -o output.png input.drawio
+
+# 匯出為 PDF
+&quot;C:Program Filesdraw.iodraw.io.exe&quot; -x -f pdf -o output.pdf input.drawio" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span># Windows：安裝 draw.io 桌面版後</span></span>
+<span class="line"><span># 通常位於 C:Program Filesdraw.iodraw.io.exe</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 匯出為 PNG（-x 指定輸出格式，-o 指定輸出路徑）</span></span>
+<span class="line"><span>"C:Program Filesdraw.iodraw.io.exe" -x -f png -o output.png input.drawio</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 匯出為 PDF</span></span>
+<span class="line"><span>"C:Program Filesdraw.iodraw.io.exe" -x -f pdf -o output.pdf input.drawio</span></span></code></pre> </div> </div>   <h2>CI/CD 自動化：圖表隨 Code 同步更新</h2> <p>
+將 <code>drawio-cli</code> 整合到 CI/CD 流水線，可以實現「每次程式碼部署時自動更新架構圖」的效果。
+</p> <h3>GitHub Actions 範例</h3> <div class="cb-wrap" data-astro-cid-jgrc2lfe> <div class="cb-bar" data-astro-cid-jgrc2lfe> <span class="cb-label" data-astro-cid-jgrc2lfe></span> <button class="cb-copy" data-code="# .github/workflows/update-diagrams.yml
+name: Update Architecture Diagrams
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'              # 當 src/ 有變動時觸發
+
+jobs:
+  generate-diagrams:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install drawio-cli
+        run: |
+          cd /path/to/Draw_io_cli
+          npm install
+          npm link
+
+      - name: Generate diagrams
+        run: |
+          draw-cli generate ai-agent docs/diagrams/system-architecture.drawio
+          draw-cli generate ai-agent-heatmap docs/diagrams/system-heatmap.drawio
+
+      - name: Commit updated diagrams
+        run: |
+          git config --local user.name &quot;GitHub Actions&quot;
+          git add docs/diagrams/
+          git diff --staged --quiet || git commit -m &quot;docs: auto-update architecture diagrams&quot;" data-astro-cid-jgrc2lfe>複製</button> </div> <div class="cb-inner" data-astro-cid-jgrc2lfe> <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf; overflow-x: auto;" tabindex="0" data-astro-cid-jgrc2lfe data-language="text"><code><span class="line"><span># .github/workflows/update-diagrams.yml</span></span>
+<span class="line"><span>name: Update Architecture Diagrams</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>on:</span></span>
+<span class="line"><span>  push:</span></span>
+<span class="line"><span>    branches: [main]</span></span>
+<span class="line"><span>    paths:</span></span>
+<span class="line"><span>      - 'src/**'              # 當 src/ 有變動時觸發</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>jobs:</span></span>
+<span class="line"><span>  generate-diagrams:</span></span>
+<span class="line"><span>    runs-on: ubuntu-latest</span></span>
+<span class="line"><span>    steps:</span></span>
+<span class="line"><span>      - uses: actions/checkout@v4</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      - name: Setup Node.js</span></span>
+<span class="line"><span>        uses: actions/setup-node@v4</span></span>
+<span class="line"><span>        with:</span></span>
+<span class="line"><span>          node-version: '20'</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      - name: Install drawio-cli</span></span>
+<span class="line"><span>        run: |</span></span>
+<span class="line"><span>          cd /path/to/Draw_io_cli</span></span>
+<span class="line"><span>          npm install</span></span>
+<span class="line"><span>          npm link</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      - name: Generate diagrams</span></span>
+<span class="line"><span>        run: |</span></span>
+<span class="line"><span>          draw-cli generate ai-agent docs/diagrams/system-architecture.drawio</span></span>
+<span class="line"><span>          draw-cli generate ai-agent-heatmap docs/diagrams/system-heatmap.drawio</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      - name: Commit updated diagrams</span></span>
+<span class="line"><span>        run: |</span></span>
+<span class="line"><span>          git config --local user.name "GitHub Actions"</span></span>
+<span class="line"><span>          git add docs/diagrams/</span></span>
+<span class="line"><span>          git diff --staged --quiet || git commit -m "docs: auto-update architecture diagrams"</span></span></code></pre> </div> </div>   <div class="call info"> <span class="ci">ℹ️</span> <div> <strong>為什麼這比手動維護更好？</strong> <p>傳統上架構圖跟不上代碼演進，往往在文件中看到的圖已是過時的。透過 CI/CD 自動更新，架構圖與代碼永遠保持同步，且每次更新都有 Git 提交記錄可追蹤。</p> </div> </div>  </div> <nav class="cnav" data-astro-cid-mw7aashj> <a href="/drawio-cli/ch07-testing" class="prev" data-astro-cid-mw7aashj> <span class="nd" data-astro-cid-mw7aashj>← 上一章</span> <span class="nt" data-astro-cid-mw7aashj>單元測試實務</span> </a> <a href="/drawio-cli/about" class="next" data-astro-cid-mw7aashj> <span class="nd" data-astro-cid-mw7aashj>下一章 →</span> <span class="nt" data-astro-cid-mw7aashj>關於作者</span> </a> </nav> </main> </div> <script>
+    // Theme
+    const html = document.documentElement;
+    const tt = document.getElementById('tt');
+    const isun = document.getElementById('isun');
+    const imoon = document.getElementById('imoon');
+    function syncIcons() {
+      const dk = html.classList.contains('dark');
+      isun.style.display = dk ? 'block' : 'none';
+      imoon.style.display = dk ? 'none' : 'block';
+    }
+    syncIcons();
+    tt?.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('cc-theme', html.classList.contains('dark') ? 'dark' : 'light');
+      syncIcons();
+    });
+
+    // Progress
+    const pb = document.getElementById('pb');
+    window.addEventListener('scroll', () => {
+      const t = document.documentElement.scrollHeight - window.innerHeight;
+      pb.style.width = t > 0 ? `${(window.scrollY / t) * 100}%` : '0%';
+    }, { passive: true });
+
+    // Sidebar part toggles
+    document.querySelectorAll('.pt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.pid;
+        const list = document.querySelector(`[data-pl="${id}"]`);
+        btn.classList.toggle('open');
+        list?.classList.toggle('closed');
+      });
+    });
+
+    // Mobile menu
+    const sb = document.getElementById('sb');
+    const ov = document.getElementById('ov');
+    const mb = document.getElementById('mbtn');
+    const open = () => { sb.classList.add('open'); ov.classList.add('open'); document.body.style.overflow='hidden'; };
+    const close = () => { sb.classList.remove('open'); ov.classList.remove('open'); document.body.style.overflow=''; };
+    mb?.addEventListener('click', open);
+    ov?.addEventListener('click', close);
+  </script> </body> 

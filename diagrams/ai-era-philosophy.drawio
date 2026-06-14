@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="draw-cli" version="1.0.0">
+  <diagram name="AI世代登雲之道" id="philosophy-001">
+    <mxGraphModel dx="1200" dy="650" grid="0" page="0" pageWidth="1654" pageHeight="1169" background="#FAFAFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ====== 標題 ====== -->
+        <mxCell id="main_title" value="AI 世代 · 登雲之道"
+          style="text;html=1;fontSize=26;fontStyle=1;align=center;fillColor=none;strokeColor=none;fontColor=#2c3e50;"
+          vertex="1" parent="1">
+          <mxGeometry x="340" y="12" width="480" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="main_sub" value="無論你此刻仍在荊棘叢中摸索爬行，抑或已如夢似幻地深陷 AI 謎境——讓我帶你登上筋斗雲，如悟空一躍，十萬八千里"
+          style="text;html=1;fontSize=11;fontStyle=2;align=center;fillColor=none;strokeColor=none;fontColor=#aaaaaa;"
+          vertex="1" parent="1">
+          <mxGeometry x="150" y="54" width="860" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- ====== 左上：荊棘叢 ====== -->
+        <mxCell id="thorn_bg" value=""
+          style="rounded=1;fillColor=#fff5f5;strokeColor=#e8a0a0;dashed=1;strokeWidth=1.5;"
+          vertex="1" parent="1">
+          <mxGeometry x="18" y="88" width="298" height="188" as="geometry" />
+        </mxCell>
+        <mxCell id="thorn_label" value="⚡  荊棘叢"
+          style="text;html=1;fontSize=11;fontColor=#b85450;fontStyle=1;align=left;"
+          vertex="1" parent="1">
+          <mxGeometry x="30" y="96" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="thorn_node" value="仍在荊棘叢中&#xa;摸索爬行"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;fontStyle=1;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="54" y="120" width="208" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="thorn_desc" value="工具太多 · 看不清方向 · 不知從哪開始"
+          style="text;html=1;fontSize=10;align=center;fillColor=none;strokeColor=none;fontColor=#bbbbbb;"
+          vertex="1" parent="1">
+          <mxGeometry x="30" y="197" width="260" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ====== 左下：AI謎境 ====== -->
+        <mxCell id="fog_bg" value=""
+          style="rounded=1;fillColor=#f9f5ff;strokeColor=#c0a0d0;dashed=1;strokeWidth=1.5;"
+          vertex="1" parent="1">
+          <mxGeometry x="18" y="330" width="298" height="188" as="geometry" />
+        </mxCell>
+        <mxCell id="fog_label" value="🌀  AI 謎境"
+          style="text;html=1;fontSize=11;fontColor=#9673a6;fontStyle=1;align=left;"
+          vertex="1" parent="1">
+          <mxGeometry x="30" y="338" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="fog_node" value="如夢似幻&#xa;深陷 AI 謎境"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;fontStyle=1;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="54" y="362" width="208" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="fog_desc" value="資訊過載 · Prompt 不知怎麼寫 · 越用越迷"
+          style="text;html=1;fontSize=10;align=center;fillColor=none;strokeColor=none;fontColor=#bbbbbb;"
+          vertex="1" parent="1">
+          <mxGeometry x="30" y="439" width="260" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- 左側分隔線 (裝飾) -->
+        <mxCell id="sep_left" value=""
+          style="endArrow=none;startArrow=none;strokeColor=#dddddd;dashed=1;strokeWidth=1;"
+          edge="1" parent="1">
+          <mxGeometry x="167" y="285" width="0" height="38" as="geometry">
+            <Array as="points">
+              <mxPoint x="167" y="285" />
+              <mxPoint x="167" y="323" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sep_or" value="或"
+          style="text;html=1;fontSize=12;fontStyle=2;align=center;fillColor=#f5f5f5;strokeColor=#cccccc;rounded=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="150" y="295" width="34" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ====== 中央：筋斗雲 ====== -->
+        <mxCell id="cloud_outer" value=""
+          style="ellipse;fillColor=#fffde7;strokeColor=#f9a825;strokeWidth=3;"
+          vertex="1" parent="1">
+          <mxGeometry x="360" y="118" width="310" height="252" as="geometry" />
+        </mxCell>
+        <mxCell id="cloud_title" value="☁  筋斗雲"
+          style="text;html=1;fontSize=20;fontStyle=1;align=center;fillColor=none;strokeColor=none;fontColor=#f57f00;"
+          vertex="1" parent="1">
+          <mxGeometry x="410" y="134" width="210" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="porter_box" value="顏先生 Porter"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#d6b656;fontSize=15;fontStyle=1;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="415" y="176" width="202" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="porter_d1" value="三十年工程判斷力 · AI 世代協同創作者"
+          style="text;html=1;fontSize=10;align=center;fillColor=none;strokeColor=none;fontColor=#999999;"
+          vertex="1" parent="1">
+          <mxGeometry x="410" y="238" width="212" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="porter_d2" value="語言即是最強的開發工具"
+          style="text;html=1;fontSize=11;fontStyle=2;align=center;fillColor=none;strokeColor=none;fontColor=#d6b656;"
+          vertex="1" parent="1">
+          <mxGeometry x="410" y="263" width="212" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="porter_d3" value="技術是手段，人是目的"
+          style="text;html=1;fontSize=10;fontStyle=2;align=center;fillColor=none;strokeColor=none;fontColor=#bbbbbb;"
+          vertex="1" parent="1">
+          <mxGeometry x="410" y="290" width="212" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="porter_d4" value="不是寫所有程式碼的人&#xa;而是知道什麼程式碼值得被寫的人"
+          style="text;html=1;fontSize=9;fontStyle=2;align=center;fillColor=none;strokeColor=none;fontColor=#cccccc;"
+          vertex="1" parent="1">
+          <mxGeometry x="405" y="312" width="222" height="34" as="geometry" />
+        </mxCell>
+
+        <!-- ====== 右方：十萬八千里 ====== -->
+        <mxCell id="dest_bg" value=""
+          style="rounded=1;fillColor=#eaf4fd;strokeColor=#5b9bd5;strokeWidth=2;"
+          vertex="1" parent="1">
+          <mxGeometry x="778" y="88" width="368" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="dest_main" value="十萬八千里"
+          style="text;html=1;fontSize=22;fontStyle=1;align=center;fillColor=none;strokeColor=none;fontColor=#1a5276;"
+          vertex="1" parent="1">
+          <mxGeometry x="798" y="102" width="328" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="dest_sub2" value="新境界"
+          style="text;html=1;fontSize=12;fontStyle=2;align=center;fillColor=none;strokeColor=none;fontColor=#5b9bd5;"
+          vertex="1" parent="1">
+          <mxGeometry x="798" y="140" width="328" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="d1" value="🏗  架構清晰"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="798" y="175" width="152" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" value="✍  代碼如詩"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="964" y="175" width="152" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" value="♾  系統長青"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="798" y="248" width="152" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="d4" value="🤖  AI 協同共創"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="964" y="248" width="152" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="d5" value="📊  決策洞見"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="798" y="321" width="152" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="d6" value="💡  人文溫度"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="964" y="321" width="152" height="54" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dest_q" value="「技術是手段，人是目的」"
+          style="text;html=1;fontSize=11;fontStyle=2;align=center;fillColor=none;strokeColor=none;fontColor=#5b9bd5;"
+          vertex="1" parent="1">
+          <mxGeometry x="798" y="392" width="328" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="dest_q2" value="每一個決定背後，都站著一個人的需要"
+          style="text;html=1;fontSize=10;fontStyle=2;align=center;fillColor=none;strokeColor=none;fontColor=#aaaaaa;"
+          vertex="1" parent="1">
+          <mxGeometry x="798" y="416" width="328" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="dest_q3" value="————  三十年不變的設計信仰"
+          style="text;html=1;fontSize=10;align=right;fillColor=none;strokeColor=none;fontColor=#cccccc;"
+          vertex="1" parent="1">
+          <mxGeometry x="798" y="438" width="328" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- ====== 連線 ====== -->
+        <!-- 荊棘叢 → 筋斗雲 -->
+        <mxCell id="e1" value=""
+          style="curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.04;entryY=0.33;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=2;endArrow=block;endFill=1;startArrow=none;"
+          edge="1" source="thorn_node" target="cloud_outer" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- AI謎境 → 筋斗雲 -->
+        <mxCell id="e2" value=""
+          style="curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.04;entryY=0.67;entryDx=0;entryDy=0;strokeColor=#9673a6;strokeWidth=2;endArrow=block;endFill=1;startArrow=none;"
+          edge="1" source="fog_node" target="cloud_outer" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 筋斗雲 → 十萬八千里（一躍）-->
+        <mxCell id="e3" value="一 躍"
+          style="curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#f9a825;strokeWidth=3;endArrow=block;endFill=1;startArrow=none;fontSize=14;fontStyle=1;fontColor=#f57f00;align=center;"
+          edge="1" source="cloud_outer" target="dest_bg" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ====== 底部哲學引言 ====== -->
+        <mxCell id="bottom_q" value="「工具越強大，越需要清晰的人文意志來駕馭它。技術是手段，人是目的——這是三十年來，我從未改變的設計信仰。」"
+          style="text;html=1;fontSize=11;fontStyle=2;align=center;fillColor=#fffff8;strokeColor=#d6b656;rounded=1;spacingTop=4;spacingBottom=4;"
+          vertex="1" parent="1">
+          <mxGeometry x="80" y="548" width="1000" height="38" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
